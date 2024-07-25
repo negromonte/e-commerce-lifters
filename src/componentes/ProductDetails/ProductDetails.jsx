@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './ProductDetails.css';
 import Header from '../Header/Header';
 import Cart from '../Cart/Cart';
@@ -12,6 +12,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (titulo) {
+      // To do: Substituir o fetch pelo fetchProcuts.js 
       fetch('https://gist.githubusercontent.com/thiagossampaio/060e82b4801b0841fc683b0ce5efa06d/raw/e3cc555d9c71fd1b1160e20d7b10c083b5abcd61/desafio_front_end')
         .then(response => response.json())
         .then(data => {
@@ -81,7 +82,7 @@ const ProductDetails = () => {
               onClick={handleAddCart}
             >Add to Bag
             </button>
-            <button className="back">Back</button>
+            <Link to='/'><button className="back">Back</button></Link>
           </div>
         </div>
 
