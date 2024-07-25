@@ -1,7 +1,7 @@
 .cart {
   width: 100%;
   max-width: 300px;
-  background-color: white;
+  background-color: black;
   height: 40vh;
   position: fixed;
   top: 0;
@@ -24,6 +24,9 @@
   font-weight: 500;
   padding: 35px 0 15px;
   border-top: 1px solid #ddd;
+  color: white;
+  display: flex;
+  flex-direction: row;
 }
 
 .cart-items .cart-item:last-child {
@@ -36,4 +39,17 @@
 
 .cart-button-checkout {
   width: 100%;
+  background-color: white;
+  border: 1px solid black;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+  transition: all 0.3s ease;
+}
+
+.cart-button-checkout:hover {
+  background-color: #f0f0f0;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
 }

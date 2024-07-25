@@ -7,7 +7,7 @@ function Filters() {
     <section className='product-filters'>
       <div className='filter'>
         <h3 className='filter-title'>Filters</h3>
-        <a className='filter-clean'>Clear filters</a>
+        <a className='filter-clean color-default'>Clear filters</a>
       </div>
       <div className='filter-checkBox'>
         <h4 className='sub-title'>Categories:</h4>

@@ -20,13 +20,17 @@
 }
 
 .product-description {
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
 .product-options {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+}
+
+.product-price {
+  margin-top: 5px;
 }
 
 .product-option-color,
@@ -86,6 +90,7 @@
   display: flex;
   width: 500px;
   margin: 20px auto;
+  gap: 20px;
 }
 
 .add-to-bag {
@@ -96,6 +101,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  width: 230px;
 }
 
 .back {

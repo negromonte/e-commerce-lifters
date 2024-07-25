@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
 import Header from '../Header/Header';
 import Cart from '../Cart/Cart';
+import AppContext from '../../context/AppContext';
 
 const ProductDetails = () => {
   const { titulo } = useParams();
   const [produto, setProduto] = useState(null);
+  const { cartItems, setCartItems } = useContext(AppContext);
 
   useEffect(() => {
     if (titulo) {
@@ -28,6 +30,10 @@ const ProductDetails = () => {
     return <div>Carregando...</div>;
   }
 
+  const handleAddCart = () => {
+    setCartItems([...cartItems, produto]);
+  };
+
   return (
     <>
       <Header />
@@ -44,7 +50,7 @@ const ProductDetails = () => {
             <p className="product-description">{produto.descricao}</p>
           </div>
           <div className="product-option-color">
-            <h3>Color</h3>
+            <h3 className='color-default'>Color</h3>
             <div className="color-options">
               {produto.cores.map((color, idx) => (
                 <div
@@ -56,7 +62,7 @@ const ProductDetails = () => {
             </div>
           </div>
           <div className="product-option-size">
-            <h3>Size</h3>
+            <h3 className='color-default'>Size</h3>
             <div className="size-options">
               {produto.tamanhos.map((size, idx) => (
                 <button
@@ -69,7 +75,12 @@ const ProductDetails = () => {
             </div>
           </div>
           <div className="product-actions">
-            <button className="add-to-bag">Add to Bag</button>
+            <button
+              type='button'
+              className="add-to-bag"
+              onClick={handleAddCart}
+            >Add to Bag
+            </button>
             <button className="back">Back</button>
           </div>
         </div>
