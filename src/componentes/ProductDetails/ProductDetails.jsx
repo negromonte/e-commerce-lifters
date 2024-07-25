@@ -1,63 +1,82 @@
-// src/componentes/ProductDetails/ProductDetails.jsx
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import './ProductDetails.css';
+import Header from '../Header/Header';
+import Cart from '../Cart/Cart';
 
-const ProductDetails = ({ match }) => {
-  const { titulo } = match.params;
-  const [product, setProduct] = useState(null);
+const ProductDetails = () => {
+  const { titulo } = useParams();
+  const [produto, setProduto] = useState(null);
 
   useEffect(() => {
-    const fetchProductDetails = async () => {
-      try {
-        const response = await fetch(`https://api.example.com/products?titulo=${titulo}`);
-        if (!response.ok) {
-          throw new Error('Erro ao carregar detalhes do produto');
-        }
-        const data = await response.json();
-        if (data.length > 0) {
-          setProduct(data[0]);
-        } else {
-          console.error('Produto não encontrado.');
-        }
-      } catch (error) {
-        console.error('Erro ao buscar detalhes do produto:', error);
-      }
-    };
-
-    fetchProductDetails();
+    if (titulo) {
+      fetch('https://gist.githubusercontent.com/thiagossampaio/060e82b4801b0841fc683b0ce5efa06d/raw/e3cc555d9c71fd1b1160e20d7b10c083b5abcd61/desafio_front_end')
+        .then(response => response.json())
+        .then(data => {
+          const product = data.find(item => item.titulo === decodeURIComponent(titulo));
+          if (product) {
+            setProduto(product);
+          } else {
+            console.error('Produto não encontrado:', titulo);
+          }
+        })
+        .catch(error => console.error('Erro ao carregar produto:', error));
+    }
   }, [titulo]);
 
-  if (!product) {
-    return <div className="product-details-container">Carregando detalhes do produto...</div>;
+  if (!produto) {
+    return <div>Carregando...</div>;
   }
 
   return (
-    <div className="product-details-container">
-      <h2>{product.titulo}</h2>
-      <div className="product-images">
-        {product.fotos.map((foto, index) => (
-          <img key={index} src={foto.url} alt={`Imagem ${index + 1}`} className={foto.capa ? 'main-image' : 'secondary-image'} />
-        ))}
-      </div>
-      <div className="product-info">
-        <p>{product.descricao}</p>
-        <p>Valor: {product.valor}</p>
-        <p>Categoria: {product.categoria}</p>
-        <p>Cores disponíveis:</p>
-        <ul className="product-colors">
-          {product.cores.map((cor, index) => (
-            <li key={index} style={{ backgroundColor: cor.codigo }}>{cor.nome}</li>
-          ))}
-        </ul>
-        <p>Tamanhos disponíveis: {product.tamanhos.join(', ')}</p>
-      </div>
-    </div>
-  );
-};
+    <>
+      <Header />
+      <Cart />
+      {/* To Do: Mudar esse trecho de codigo para um componente unico */}
+      <section className="container">
+        <div className="product-images">
+          <img src={produto.fotos.find(foto => foto.capa).url} alt={produto.titulo} />
+        </div>
+        <div className="product-options">
+          <div className="product-info">
+            <h2>{produto.titulo}</h2>
+            <p className="product-price">{produto.valor}</p>
+            <p className="product-description">{produto.descricao}</p>
+          </div>
+          <div className="product-option-color">
+            <h3>Color</h3>
+            <div className="color-options">
+              {produto.cores.map((color, idx) => (
+                <div
+                  key={idx}
+                  className={`color-option ${produto.nome === color.nome ? 'selected' : ''}`}
+                  style={{ backgroundColor: color.codigo }}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="product-option-size">
+            <h3>Size</h3>
+            <div className="size-options">
+              {produto.tamanhos.map((size, idx) => (
+                <button
+                  key={idx}
+                  className='size-option'
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="product-actions">
+            <button className="add-to-bag">Add to Bag</button>
+            <button className="back">Back</button>
+          </div>
+        </div>
 
-ProductDetails.propTypes = {
-  match: PropTypes.object.isRequired,
+      </section>
+    </>
+  );
 };
 
 export default ProductDetails;

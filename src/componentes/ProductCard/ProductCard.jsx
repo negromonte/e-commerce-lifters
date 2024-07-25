@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './ProductCard.css';
-// import { Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({ produto }) => {
   const { titulo, fotos } = produto;
@@ -14,13 +13,15 @@ const ProductCard = ({ produto }) => {
 
   return (
     <section className='product-card'>
-      {/* <Link to={`/produto/${encodeURIComponent(titulo)}`} className='product-link'> */}
-      <img 
-        src={imagensPrincipais.url}
-        alt={titulo}
-        className='product-image'
-      />
-      {/* </Link> */}
+      <div>
+        <Link to={`/productDetails/${encodeURIComponent(titulo)}`}> 
+          <img
+            src={imagensPrincipais.url}
+            alt={titulo}
+            className='product-image'
+          />
+        </Link>
+      </div>
       <div className='product-details'>
         <h2 className='product-title'>{titulo}</h2>
       </div>

@@ -1,17 +1,14 @@
 import React from 'react';
-import Header from './componentes/Header/Header';
-import ContainerTitle from './componentes/ContainerTitle/ContainerTitle';
-import Products from './componentes/Products/Products';
-import Cart from './componentes/Cart/Cart';
+import Provider from './context/Provider';
+import AppRoutes from './Routes';
 
 function App() {
   return (
-    <div>
-      <Header />
-      <ContainerTitle />
-      <Products />
-      <Cart />
-    </div>
+    <Provider>
+      <div>
+        <AppRoutes/>
+      </div>
+    </Provider>
   );
 }
 
